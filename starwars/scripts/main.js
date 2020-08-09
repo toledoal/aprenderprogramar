@@ -29,6 +29,7 @@ function cargarLista() {
   // traemos al programa el elemento que grabamos anteriormente...
   // lista debe ser un string con el siguiente formato "Luke, Darth, Yoda" es decir, separado por comas
   let resultado = window.localStorage.getItem('lista');
+
   // Aqui transformamos el resultado en un Array, usando split por comas
   let resultadoAsArray = resultado.split(',');
 
@@ -44,3 +45,11 @@ function cargarLista() {
     listaPersonajes.appendChild(nuevoElemento);
   });
 }
+
+function cargarListaAutomaticamente() {
+  cargarLista();
+}
+
+window.onload = function () {
+  cargarListaAutomaticamente();
+};
