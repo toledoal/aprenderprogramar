@@ -13,22 +13,34 @@ function mostrarMensaje() {
 function guardarLista() {
   let listaPersonajes = document.getElementById('lista-personajes');
 
+  // Creamos un array vacio...
   let listaCompleta = [];
-  // listaPersonajes.children.forEach((element) => {
-  //   listaCompleta.push(element.textContent);
-  // });
-  for (var i = 0; i < listaCompleta.children.length; i++) {
-    listaCompleta.push(listaCompleta.children[i].textContent);
+
+  // Vamos a recorrer cada uno de los <li> de la lista, leer su textContent y agregarlo al array listaCompleta
+  for (var i = 0; i < listaPersonajes.children.length; i++) {
+    listaCompleta.push(listaPersonajes.children[i].textContent);
   }
 
+  // Por ultimo grabamos en local storage la lista como un elemento llamado lista
   window.localStorage.setItem('lista', listaCompleta);
 }
 
 function cargarLista() {
-  let resultado = window.localStorage.getItem('myCat');
-  let listaPersonajes = document.getElementById('lista-personajes');
-  let nuevoElemento = document.createElement('li');
-  nuevoElemento.textContent = resultado;
+  // traemos al programa el elemento que grabamos anteriormente...
+  // lista debe ser un string con el siguiente formato "Luke, Darth, Yoda" es decir, separado por comas
+  let resultado = window.localStorage.getItem('lista');
+  // Aqui transformamos el resultado en un Array, usando split por comas
+  let resultadoAsArray = resultado.split(',');
 
-  listaPersonajes.appendChild(nuevoElemento);
+  let listaPersonajes = document.getElementById('lista-personajes');
+  // Antes de agregar elementos a la lista, debemos borrar los anteriores para no tener repetidos
+  listaPersonajes.innerHTML = '';
+
+  // Por ultimo agregamos a la lista cada nombre...
+  resultadoAsArray.forEach((nombreEnLista) => {
+    let nuevoElemento = document.createElement('li');
+    nuevoElemento.textContent = nombreEnLista;
+
+    listaPersonajes.appendChild(nuevoElemento);
+  });
 }
